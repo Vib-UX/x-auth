@@ -19,13 +19,19 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Define multiple callback URLs
+const callbackURL =
+  process.env.NODE_ENV === "production"
+    ? "https://x-auth-production.up.railway.app/auth/twitter/callback"
+    : "http://localhost:3000/auth/twitter/callback";
+
 // Passport Twitter Strategy configuration
 passport.use(
   new TwitterStrategy(
     {
       consumerKey: process.env.TWITTER_CONSUMER_KEY,
       consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-      callbackURL: "http://localhost:3000/auth/twitter/callback",
+      callbackURL: callbackURL,
     },
     function (token, tokenSecret, profile, done) {
       // Here you can save the user profile to your database
