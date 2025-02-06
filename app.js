@@ -29,6 +29,9 @@ const callbackURL =
     ? "https://x-auth-production.up.railway.app/auth/twitter/callback"
     : "http://localhost:5173/auth/twitter/callback";
 
+export const TWITTER_REDIRECT_URL =
+  process.env.TWITTER_REDIRECT_URL || "http://localhost:5173";
+
 // Passport Twitter Strategy configuration
 passport.use(
   new TwitterStrategy(
@@ -65,8 +68,12 @@ app.get(
   "/auth/twitter/callback",
   passport.authenticate("twitter", { failureRedirect: "/" }),
   function (req, res) {
-    // Successful authentication, redirect home.
-    res.redirect("/");
+    // Successful authentication, redirect to the specified URL with query parameters.
+    res.redirect(
+      process.env.TWITTER_REDIRECT_URL +
+        `/airdrop?twitter_id=${req.user.id}` +
+        `&twitter_username=${req.user.username}`
+    );
   }
 );
 
