@@ -2,9 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const session = require("express-session");
 const passport = require("passport");
+const cors = require("cors");
 const TwitterStrategy = require("passport-twitter").Strategy;
 
 const app = express();
+
+// CORS setup
+app.use(cors());
 
 // Session setup
 app.use(
