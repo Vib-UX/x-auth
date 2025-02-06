@@ -27,7 +27,7 @@ app.use(passport.session());
 const callbackURL =
   process.env.NODE_ENV === "production"
     ? "https://x-auth-production.up.railway.app/auth/twitter/callback"
-    : "http://localhost:3000/auth/twitter/callback";
+    : "http://localhost:5173/auth/twitter/callback";
 
 // Passport Twitter Strategy configuration
 passport.use(
